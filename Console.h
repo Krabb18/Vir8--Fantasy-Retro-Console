@@ -11,12 +11,14 @@
 #include "EBO.h"
 #include "VAO.h"
 
-#include <glm/glm.hpp>
+#include "RenderObj.h"
 
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 #include <glm/gtx/quaternion.hpp>
+
+#include <sol/sol.hpp>
 
 #include <vector>
 
@@ -52,16 +54,33 @@ private:
 
 	glm::mat4 model = glm::mat4(1.0f);
 
+	glm::vec4 backGroundColor = glm::vec4(1.0f);
 	glm::vec4 screenBuffer[128][128];
 
 	void BindSSBO();
 
+
+	string scriptPath = "test.lua";
 public:
+	vector<Sprite> sprites;
+
+	bool playMode = true;
+
+	sol::state lua;
+
 	Shader consoleShader;
 	glm::vec3 screenPos = glm::vec3(-0.5f, -0.5f, 0.0f);
 
 	void ClearScreen();
 	void DrawScreenBuffer();
+
+	void InitScriptReader();
+
+	void DrawPixel(int posX, int posY, int r, int g, int b, int a);
+	void DrawSprite(int spriteNum ,int posX, int posY); //Noch scale adden vielleciht
+
+	void Start();
+	void Update();
 
 	void InitVir();
 	void RenderVir();

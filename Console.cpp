@@ -62,6 +62,8 @@ void Vir::RenderVir()
 	ClearScreen();
 	consoleShader.Activate();
 
+	if (playMode) { Update(); }
+
 	DrawScreenBuffer();
 
 	BindSSBO();
@@ -91,7 +93,7 @@ void Vir::ClearScreen()
 	{
 		for(int j = 0; j<128; j++)
 		{
-			screenBuffer[i][j] = glm::vec4(1.0, 1.0, 1.0, 1.0);
+			screenBuffer[i][j] = backGroundColor;
 		}
 	}
 }
@@ -105,7 +107,7 @@ void Vir::DrawScreenBuffer()
 			float xPos = (i * 0.007f) + screenPos.x;
 			float yPos = (j * 0.01f) + screenPos.y;
 
-			if (j == 100) { screenBuffer[i][j] = glm::vec4(0.0f, 1.0f, 0.0f, 1.0f); }
+			//if (j == 100) { screenBuffer[i][j] = glm::vec4(0.0f, 1.0f, 0.0f, 1.0f); }
 
 			glm::mat4 pixelMatInst = glm::mat4(1.0f);
 			pixelMatInst = glm::translate(pixelMatInst, glm::vec3(xPos, yPos, 0.0f));
